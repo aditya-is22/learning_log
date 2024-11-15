@@ -21,8 +21,6 @@ class Entry(models.Model):
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
-
-    # This tells Django how to store the metadata
     class Meta:
         """set a special attribute telling Django to use
         'Entries' when it needs to refer to more than one entry (Otherwise would have been Entrys"""
@@ -30,8 +28,4 @@ class Entry(models.Model):
 
     def __str__(self):
         """Return a string representation of the model."""
-        return f"{self.text[:50]}..." if len(self.text) > 50 else self.text
-
-
-
-
+        return self.text[:50] + "..."
