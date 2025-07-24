@@ -1,13 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User # 1. Import the User model
 
-# Create your models here.
 class Topic(models.Model):
     """A topic the user is learning about"""
     text = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE) # 2. Add the owner field
 
     def __str__(self):
-        """Return a string representation of the model"""
+        """Return a string representation of the model."""
         return self.text
 
 # Defining the Entry Model
