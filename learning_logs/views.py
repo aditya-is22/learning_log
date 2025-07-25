@@ -31,11 +31,15 @@ def topic(request, topic_id):
 def new_topic(request):
     """Add a new topic."""
     if request.method != 'POST':
-        form = TopicForm()  # Blank form
+        # No data submitted; create a blank form
+        form = TopicForm()
     else:
-        form = TopicForm(request.POST)
+        # POST data submitted; process data.
+        form = TopicForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
+            new_topic.save()
             return redirect('learning_logs:topics')  # Redirect to topics page
 
     context = {'form': form}
