@@ -1,10 +1,18 @@
 {% extends "learning_logs/base.html" %}
 
-{% block content %}
+{% block page_header %}
   <h2>Add a new topic:</h2>
-  <form method="post">
+{% endblock page_header %}
+
+{% block content %}
+  <form action="{% url 'learning_logs:new_topic' %}" method='post' class="form">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit">Add topic</button>
+
+    <div class="mb-3">
+      <label for="id_text" class="form-label">Topic:</label>
+      <input type="text" name="text" class="form-control" id="id_text" required>
+    </div>
+
+    <button name="submit" class="btn btn-primary">Add Topic</button>
   </form>
 {% endblock content %}

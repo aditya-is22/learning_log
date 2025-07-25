@@ -1,17 +1,60 @@
-<p>
-  <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
-  <a href="{% url 'learning_logs:topics' %}">Topics</a> -
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning Log</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
 
-  {% if user.is_authenticated %}
-    Hello, {{ user.username }}.
-    <form action="{% url 'users:logout' %}" method="post" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-link">Log out</button>
-    </form>
-  {% else %}
-    <a href="{% url 'users:register' %}">Register</a> -
-    <a href="{% url 'users:login' %}">Log in</a>
-  {% endif %}
-</p>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-{% block content %}{% endblock content %}
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'learning_logs:topics' %}">Topics</a>
+            </li>
+          </ul>
+          
+          <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <form class="d-inline" method="post" action="{% url 'users:logout' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-link nav-link p-0 align-baseline">Log out</button>
+                </form>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">Log In</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div class="pb-2 mb-2 border-bottom">
+        {% block page_header %}{% endblock page_header %}
+      </div>
+      <div>
+        {% block content %}{% endblock content %}
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
