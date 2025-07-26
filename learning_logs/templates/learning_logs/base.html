@@ -25,7 +25,7 @@
             </li>
           </ul>
           
-          <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+          <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
             {% if user.is_authenticated %}
               <li class="nav-item">
                 <form class="d-inline" method="post" action="{% url 'users:logout' %}">
