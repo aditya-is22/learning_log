@@ -134,14 +134,15 @@ LOGOUT_REDIRECT_URL = '/'
 import os
 import dj_database_url
 
-# Check if running on Heroku
-IS_HEROKU_APP = "DYNO" in os.environ
-
-if IS_HEROKU_APP:
+# Check for a production environment (Render provides DATABASE_URL)
+if 'DATABASE_URL' in os.environ:
     # Security settings
     SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
     DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
-    ALLOWED_HOSTS = [os.environ.get('HEROKU_APP_HOST')]
+
+    # Configure allowed hosts for Render
+    # Render sets RENDER_EXTERNAL_HOSTNAME, which we use
+    ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
 
     # Database
     DATABASES = {
@@ -154,5 +155,7 @@ if IS_HEROKU_APP:
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
     # Add WhiteNoise to middleware
+    # Ensure 'whitenoise.middleware.WhiteNoiseMiddleware' is right after
+    # 'django.middleware.security.SecurityMiddleware'
     MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
