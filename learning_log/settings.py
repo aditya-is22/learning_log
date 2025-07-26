@@ -142,7 +142,7 @@ if 'DATABASE_URL' in os.environ:
 
     # Configure allowed hosts for Render
     # Render sets RENDER_EXTERNAL_HOSTNAME, which we use
-    ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+    ALLOWED_HOSTS = ['devs-learning-log.onrender.com', os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
 
     # Database
     DATABASES = {
