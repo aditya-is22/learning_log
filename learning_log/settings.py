@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -130,3 +130,29 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # My settings
 LOGIN_URL = '/users/login/'
 LOGOUT_REDIRECT_URL = '/'
+
+import os
+import dj_database_url
+
+# Check if running on Heroku
+IS_HEROKU_APP = "DYNO" in os.environ
+
+if IS_HEROKU_APP:
+    # Security settings
+    SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+    DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+    ALLOWED_HOSTS = [os.environ.get('HEROKU_APP_HOST')]
+
+    # Database
+    DATABASES = {
+        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    }
+
+    # Static files (WhiteNoise)
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+    # Add WhiteNoise to middleware
+    MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
