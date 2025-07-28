@@ -8,12 +8,7 @@
 {% block content %}
   <form action="{% url 'learning_logs:edit_entry' entry.id %}" method='post' class="form">
     {% csrf_token %}
-
-    <div class="mb-3">
-        <label for="id_text" class="form-label">Entry:</label>
-        <textarea name="text" class="form-control" id="id_text" rows="3" required>{{ entry.text }}</textarea>
-    </div>
-
+    {{ form.as_p }}
     <button name="submit" class="btn btn-primary">Save Changes</button>
   </form>
 {% endblock content %}
