@@ -3,7 +3,6 @@ from .models import Topic, Entry
 from .forms import TopicForm
 from .forms import EntryForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, Http404
 
 # Create your views here.
 
