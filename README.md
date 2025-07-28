@@ -15,6 +15,7 @@ The project is built following the practices outlined in the book "Python Crash 
   * **Topic Creation**: Users can create new topics they want to learn about.
   * **Entry Logging**: Add detailed, timestamped entries for each topic to track progress and notes.
   * **Personalized Views**: Users can only see and manage their own topics and entries.
+  * **Search Feature**: Users can find topics or entries using the search bar.
   * **Responsive Design**: A clean and simple interface built with HTML and Bootstrap.
 
 ## Built With
