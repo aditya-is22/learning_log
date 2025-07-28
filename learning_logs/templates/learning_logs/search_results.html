@@ -1,0 +1,27 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+  {% if query %}
+    <h2>Results for '{{ query }}'</h2>
+  {% else %}
+    <h2>Search</h2>
+  {% endif %}
+{% endblock page_header %}
+
+{% block content %}
+  {% for entry in results %}
+    <div class="card mb-3">
+      <div class="card-header">
+        <h4 class="card-title">
+          <a href="{% url 'learning_logs:topic' entry.topic.id %}">{{ entry.topic }}</a>
+          <small class="text-muted">| {{ entry.date_added|date:'M d, Y H:i' }}</small>
+        </h4>
+      </div>
+      <div class="card-body">
+        {{ entry.text|linebreaks }}
+      </div>
+    </div>
+  {% empty %}
+    <p>No entries found matching your search.</p>
+  {% endfor %}
+{% endblock content %}
