@@ -1,9 +1,10 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Topic, Entry
 from .forms import TopicForm
 from .forms import EntryForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, Http404
+
 
 # Create your views here.
 
@@ -77,3 +78,21 @@ def edit_entry(request, entry_id):
 
     context = {'entry': entry, 'topic': topic, 'form': form}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+
+@login_required
+def search_results(request):
+    """Show search results."""
+    query = request.GET.get('q')
+    if query:
+        # Filter entries where the entry's text OR the topic's text contains the query
+        # Also ensure the entries belong to the current user
+        results = Entry.objects.filter(
+            Q(text__icontains=query) | Q(topic__text__icontains=query),
+            topic__owner=request.user
+        ).distinct()
+    else:
+        results = []
+
+    context = {'query': query, 'results': results}
+    return render(request, 'learning_logs/search_results.html', context)

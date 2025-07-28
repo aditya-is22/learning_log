@@ -1,7 +1,14 @@
 {% extends "learning_logs/base.html" %}
 
 {% block page_header %}
-  <h1>Topics</h1>
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Topics</h1>
+
+    <form class="d-flex w-50" action="{% url 'learning_logs:search_results' %}" method="get">
+      <input class="form-control me-2" type="search" name="q" placeholder="Search Topics or Entries" aria-label="Search">
+      <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+  </div>
 {% endblock page_header %}
 
 {% block content %}
