@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db import models
 from django.contrib.auth.models import User # 1. Import the User model
 
@@ -21,6 +23,7 @@ class Entry(models.Model):
 
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         """set a special attribute telling Django to use

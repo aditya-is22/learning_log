@@ -82,17 +82,24 @@ def edit_entry(request, entry_id):
 
 @login_required
 def search_results(request):
-    """Show search results."""
+    """Show search results for topics and entries."""
     query = request.GET.get('q')
-    if query:
-        # Filter entries where the entry's text OR the topic's text contains the query
-        # Also ensure the entries belong to the current user
-        results = Entry.objects.filter(
-            Q(text__icontains=query) | Q(topic__text__icontains=query),
-            topic__owner=request.user
-        ).distinct()
-    else:
-        results = []
+    topics = Topic.objects.none()
+    entries = Entry.objects.none()
 
-    context = {'query': query, 'results': results}
+    if query:
+        # Find all topics owned by the user that match the query
+        topics = Topic.objects.filter(
+            owner=request.user,
+            text__icontains=query
+        ).distinct()
+
+        # Find all entries where the entry or its topic matches the query
+        entries = Entry.objects.filter(
+            Q(topic__owner=request.user),
+            Q(text__icontains=query) | Q(topic__text__icontains=query)
+        ).select_related('topic').distinct()
+
+    # The context is passed to the template without any text processing
+    context = {'query': query, 'topics': topics, 'entries': entries}
     return render(request, 'learning_logs/search_results.html', context)

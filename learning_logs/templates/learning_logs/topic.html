@@ -6,16 +6,19 @@
 
 {% block content %}
   <p>
-    <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-primary mb-3">Add new entry</a>
   </p>
 
   {% for entry in entries %}
     <div class="card mb-3">
-      <div class="card-header">
-        <h4 class="card-title">
-          {{ entry.date_added|date:'M d, Y H:i' }}
-          <small><a href="{% url 'learning_logs:edit_entry' entry.id %}"> Edit entry</a></small>
-        </h4>
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="mb-0">{{ entry.date_added|date:'M d, Y H:i' }}</h5>
+          {% if entry.date_modified|timesince:entry.date_added %}
+            <small class="text-muted">Last modified: {{ entry.date_modified|date:'M d, Y H:i' }}</small>
+          {% endif %}
+        </div>
+        <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-secondary btn-sm">Edit entry</a>
       </div>
       <div class="card-body">
         {{ entry.text|safe|linebreaks }}

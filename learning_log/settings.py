@@ -46,6 +46,15 @@ INSTALLED_APPS = [
 
 ]
 
+SUMMERNOTE_CONFIG = {
+    # You can change editor's theme (flatly, superhero, etc.)
+    'theme': 'bs5',
+
+    # Change editor size
+    'width': '100%',
+    'height': '250',  # Note: Do not include 'px' here
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     # Whitenoise middleware is added in the production section below
@@ -106,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_TZ = True
 

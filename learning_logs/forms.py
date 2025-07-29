@@ -15,6 +15,6 @@ class EntryForm(forms.ModelForm):
         model = Entry
         fields = ['text']
         widgets = {
-            'text': SummernoteWidget(),
+            'text': SummernoteWidget(attrs={'height': '150px'}),
         }
         labels = {'text': ''}

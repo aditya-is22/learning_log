@@ -9,19 +9,43 @@
 {% endblock page_header %}
 
 {% block content %}
-  {% for entry in results %}
-    <div class="card mb-3">
-      <div class="card-header">
-        <h4 class="card-title">
-          <a href="{% url 'learning_logs:topic' entry.topic.id %}">{{ entry.topic }}</a>
-          <small class="text-muted">| {{ entry.date_added|date:'M d, Y H:i' }}</small>
-        </h4>
-      </div>
-      <div class="card-body">
-        {{ entry.text|linebreaks }}
-      </div>
+
+  {% if not topics and not entries %}
+    <p>No topics or entries found matching your search.</p>
+  {% endif %}
+
+  {% if topics %}
+    <h3 class="mb-3">Matching Topics</h3>
+    <div class="list-group mb-4">
+      {% for topic in topics %}
+        <a href="{% url 'learning_logs:topic' topic.id %}" class="list-group-item list-group-item-action">
+          {{ topic.text }}
+        </a>
+      {% endfor %}
     </div>
-  {% empty %}
-    <p>No entries found matching your search.</p>
-  {% endfor %}
+  {% endif %}
+
+  {% if entries %}
+    {% if topics %}
+      <h3 class="mt-4 mb-3">Matching Entries</h3>
+    {% endif %}
+    {% for entry in entries %}
+      <div class="card mb-3">
+        <div class="card-header">
+          <h4 class="card-title">
+            <a href="{% url 'learning_logs:topic' entry.topic.id %}">{{ entry.topic }}</a>
+            {% if topic.was_modified %}
+              <small>(Last modified: {{ topic.date_modified|date:'M d, Y H:i' }})</small>
+            {% else %}
+              <small>Created: {{ entry.date_added|date:'M d, Y H:i' }}</small>
+            {% endif %}
+          </h4>
+        </div>
+        <div class="card-body">
+          {{ entry.text|striptags|linebreaks }}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+
 {% endblock content %}
