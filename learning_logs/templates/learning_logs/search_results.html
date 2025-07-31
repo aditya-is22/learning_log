@@ -34,10 +34,7 @@
         <div class="card-header">
           <h4 class="card-title">
             <a href="{% url 'learning_logs:topic' entry.topic.id %}">{{ entry.topic }}</a>
-            {% if topic.was_modified %}
-              <small>(Last modified: {{ topic.date_modified|date:'M d, Y H:i' }})</small>
-            {% else %}
-              <small>Created: {{ entry.date_added|date:'M d, Y H:i' }}</small>
+            <small class="text-muted">Last modified: {{ entry.date_modified|date:'M d, Y H:i' }}</small>
             {% endif %}
           </h4>
         </div>
