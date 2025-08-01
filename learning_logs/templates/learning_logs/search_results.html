@@ -35,7 +35,6 @@
           <h4 class="card-title">
             <a href="{% url 'learning_logs:topic' entry.topic.id %}">{{ entry.topic }}</a>
             <small class="text-muted">Last modified: {{ entry.date_modified|date:'M d, Y H:i' }}</small>
-            {% endif %}
           </h4>
         </div>
         <div class="card-body">
