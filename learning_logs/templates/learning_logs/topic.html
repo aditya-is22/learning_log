@@ -1,30 +1,44 @@
 {% extends "learning_logs/base.html" %}
 
 {% block page_header %}
-  <h2>{{ topic }}</h2>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2><i class="fas fa-book me-2"></i>{{ topic }}</h2>
+    <a href="{% url 'learning_logs:topics' %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i> Back to Topics</a>
+  </div>
 {% endblock page_header %}
 
 {% block content %}
-  <p>
-    <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-primary mb-3">Add new entry</a>
-  </p>
+  <div class="mb-4">
+    <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Add New Entry</a>
+  </div>
 
   {% for entry in entries %}
-    <div class="card mb-3">
-      <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center bg-light">
         <div>
-          <h5 class="mb-0">{{ entry.date_added|date:'M d, Y H:i' }}</h5>
+          <h5 class="mb-0"><i class="far fa-calendar-alt me-2"></i>{{ entry.date_added|date:'M d, Y H:i' }}</h5>
           {% if entry.date_modified|timesince:entry.date_added %}
-            <small class="text-muted">Last modified: {{ entry.date_modified|date:'M d, Y H:i' }}</small>
+            <small class="text-muted"><i class="far fa-clock me-1"></i>Last modified: {{ entry.date_modified|date:'M d, Y H:i' }}</small>
           {% endif %}
         </div>
-        <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-secondary btn-sm">Edit entry</a>
+        <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-outline-primary btn-sm"><i class="fas fa-edit me-1"></i>Edit Entry</a>
       </div>
       <div class="card-body">
-        {{ entry.text|safe|linebreaks }}
+        <div class="entry-content">
+          {{ entry.text|safe|linebreaks }}
+        </div>
       </div>
     </div>
   {% empty %}
-    <p>There are no entries for this topic yet.</p>
+    <div class="alert alert-info" role="alert">
+      <i class="fas fa-info-circle me-2"></i> There are no entries for this topic yet. Add your first entry to get started!
+    </div>
   {% endfor %}
+  
+  {% if entries %}
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <p class="text-muted mb-0"><i class="fas fa-list-ul me-1"></i> {{ entries|length }} {% if entries|length == 1 %}entry{% else %}entries{% endif %} in this topic</p>
+      <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="btn btn-sm btn-outline-secondary"><i class="fas fa-arrow-up me-1"></i> Back to top</a>
+    </div>
+  {% endif %}
 {% endblock content %}

@@ -1,14 +1,25 @@
 {% extends "learning_logs/base.html" %}
 
 {% block page_header %}
-  <h2><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></h2>
-  <h3>Add a new entry:</h3>
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <h2><i class="fas fa-edit me-2"></i>Add a new entry</h2>
+      <h5 class="text-muted">Topic: <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></h5>
+    </div>
+    <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i> Back to Topic</a>
+  </div>
 {% endblock page_header %}
 
 {% block content %}
-  <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post' class="form">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button name="submit" class="btn btn-primary">Add Entry</button>
-  </form>
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body p-4">
+      <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post' class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-flex justify-content-end mt-4">
+          <button name="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Save Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock content %}
