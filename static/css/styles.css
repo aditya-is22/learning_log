@@ -158,7 +158,7 @@ html, body {
 .footer {
   background-color: var(--dark-color);
   color: rgba(255, 255, 255, 0.75);
-  padding: 2rem 0;
+  padding: 1rem 0; /* Reduced padding from 2rem to 1rem */
   width: 100%;
   position: sticky;
   top: 100%;

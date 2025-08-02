@@ -30,9 +30,11 @@
 
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            {% if request.resolver_match.url_name != 'topics' %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'learning_logs:topics' %}"><i class="fas fa-list-ul me-1"></i> Topics</a>
             </li>
+            {% endif %}
           </ul>
           
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
@@ -70,13 +72,12 @@
 
     <footer class="footer py-4 bg-dark mt-auto">
       <div class="container">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-md-6">
-            <h5 class="text-white">Learning Log</h5>
-            <p class="text-muted">Track your learning journey with ease.</p>
+            <p class="mb-0"><span class="text-white fw-bold">Learning Log</span> <small class="text-white-50">- Track your learning journey with ease.</small></p>
           </div>
           <div class="col-md-6 text-md-end">
-            <p class="mb-0 text-muted">&copy; {% now "Y" %} Learning Log. All rights reserved.</p>
+            <small class="text-white-50">&copy; {% now "Y" %} Learning Log. All rights reserved.</small>
           </div>
         </div>
       </div>
