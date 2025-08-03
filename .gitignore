@@ -1,0 +1,27 @@
+# PyCharm project files
+.idea/
+
+# Default ignored files
+/shelf/
+
+# Environment variables
+.env
+
+# Django-specific files
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+staticfiles/
+
+# Virtual environment
+ll_env/
+
+# macOS system files
+.DS_Store
+
+# Logs and temporary files
+*.log
+*.bak
+*.swp
+
