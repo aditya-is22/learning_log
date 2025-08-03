@@ -1,30 +1,98 @@
 {% extends "learning_logs/base.html" %}
 
 {% block page_header %}
-  <div class="p-5 mb-4 bg-light rounded-3">
-    <div class="container-fluid py-5">
+  <div class="hero-section p-5 mb-5 rounded-3">
+    <div class="container py-5">
 
       {% if user.is_authenticated %}
         {# Show this content if the user is logged in #}
-        <h1 class="display-5 fw-bold">Hello, {{ user.username }}!</h1>
-        <p class="col-md-8 fs-4">
-          Welcome back to your Learning Log. You can view your existing topics or start a new one at any time.
-        </p>
-        <a class="btn btn-primary btn-lg" href="{% url 'learning_logs:topics' %}">View Topics &raquo;</a>
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h1 class="display-4 fw-bold mb-4">Hello, {{ user.username }}!</h1>
+            <p class="fs-4 mb-4">
+              Welcome back to your Learning Log. Continue your learning journey by exploring your topics or creating new ones.
+            </p>
+            <div class="d-flex gap-3">
+              <a class="btn btn-light btn-lg" href="{% url 'learning_logs:topics' %}"><i class="fas fa-book me-2"></i>View Topics</a>
+              <a class="btn btn-outline-light btn-lg" href="{% url 'learning_logs:new_topic' %}"><i class="fas fa-plus me-2"></i>New Topic</a>
+            </div>
+          </div>
+          <div class="col-lg-5 d-none d-lg-block text-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="JavaScript">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="Python">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="HTML5">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="CSS3">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="React">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="Node.js">
+          </div>
+        </div>
 
       {% else %}
         {# Show this content if the user is not logged in #}
-        <h1 class="display-5 fw-bold">Track your learning.</h1>
-        <p class="col-md-8 fs-4">
-          Make your own Learning Log, and keep a list of the topics you're learning about.
-        </p>
-
-        <p class="col-md-8 fs-4">
-          Whenever you learn something new about a topic, make an entry summarizing what you've learned.
-        </p>
-        <a class="btn btn-primary btn-lg" href="{% url 'users:register' %}">Register an account &raquo;</a>
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h1 class="display-4 fw-bold mb-4">Track your learning journey</h1>
+            <p class="fs-4 mb-3">
+              Create your personal Learning Log to organize and document everything you're learning.
+            </p>
+            <p class="fs-4 mb-4">
+              Record insights, track progress, and build a knowledge repository that grows with you.
+            </p>
+            <div class="d-flex gap-3">
+              <a class="btn btn-light btn-lg" href="{% url 'users:register' %}"><i class="fas fa-user-plus me-2"></i>Register Now</a>
+              <a class="btn btn-outline-light btn-lg" href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt me-2"></i>Log In</a>
+            </div>
+          </div>
+          <div class="col-lg-5 d-none d-lg-block text-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="JavaScript">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="Python">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="HTML5">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="CSS3">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="React">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="img-fluid" style="width: 80px; margin: 10px;" alt="Node.js">
+          </div>
+        </div>
       {% endif %}
 
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="container mb-5">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="rounded-circle bg-primary bg-opacity-10 p-3 d-inline-block mb-3">
+              <i class="fas fa-book fa-2x text-primary"></i>
+            </div>
+            <h3 class="card-title h5 mb-3">Organize Topics</h3>
+            <p class="card-text">Create custom topics for different subjects you're learning and keep everything organized.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="rounded-circle bg-primary bg-opacity-10 p-3 d-inline-block mb-3">
+              <i class="fas fa-edit fa-2x text-primary"></i>
+            </div>
+            <h3 class="card-title h5 mb-3">Rich Text Entries</h3>
+            <p class="card-text">Add detailed entries with rich formatting to document your learning progress.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-4">
+            <div class="rounded-circle bg-primary bg-opacity-10 p-3 d-inline-block mb-3">
+              <i class="fas fa-search fa-2x text-primary"></i>
+            </div>
+            <h3 class="card-title h5 mb-3">Search Functionality</h3>
+            <p class="card-text">Quickly find topics and entries with the powerful search feature.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock page_header %}

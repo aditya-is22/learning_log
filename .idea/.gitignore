@@ -1,8 +1,0 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-
-# ignore these too
-/db.sqlite3
-__pycache__/
-/material_theme_project_new.xml

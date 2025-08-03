@@ -1,18 +1,30 @@
 {% extends "learning_logs/base.html" %}
 
 {% block page_header %}
-  <h2>Add a new topic:</h2>
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      <h2><i class="fas fa-folder-plus me-2"></i>Add a new topic</h2>
+    </div>
+    <a href="{% url 'learning_logs:topics' %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i> Back to Topics</a>
+  </div>
 {% endblock page_header %}
 
 {% block content %}
-  <form action="{% url 'learning_logs:new_topic' %}" method='post' class="form">
-    {% csrf_token %}
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body p-4">
+      <form action="{% url 'learning_logs:new_topic' %}" method='post' class="form">
+        {% csrf_token %}
 
-    <div class="mb-3">
-      <label for="id_text" class="form-label">Topic:</label>
-      <input type="text" name="text" class="form-control" id="id_text" required>
+        <div class="mb-4">
+          <label for="id_text" class="form-label fw-bold"><i class="fas fa-tag me-2"></i>Topic name:</label>
+          <input type="text" name="text" class="form-control" id="id_text" required placeholder="Enter a descriptive topic name">
+          <div class="form-text text-muted mt-2">Choose a clear, specific name for your topic to help organize your entries.</div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+          <button name="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Create Topic</button>
+        </div>
+      </form>
     </div>
-
-    <button name="submit" class="btn btn-primary">Add Topic</button>
-  </form>
+  </div>
 {% endblock content %}

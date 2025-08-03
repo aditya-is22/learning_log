@@ -6,6 +6,7 @@ django-summernote==0.8.20.0
 gunicorn==23.0.0
 packaging==25.0
 psycopg2-binary==2.9.10
+python-decouple==3.8
 sqlparse==0.5.1
 tzdata==2024.2
 webencodings==0.5.1
