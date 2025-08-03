@@ -32,6 +32,10 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
+    # My apps - placed before admin to ensure template priority
+    'users',
+    'learning_logs',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,10 +45,6 @@ INSTALLED_APPS = [
 
     # Third-party apps
     'django_summernote',
-
-    # My apps
-    'learning_logs',
-    'users',
 
 ]
 

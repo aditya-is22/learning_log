@@ -1,8 +1,9 @@
 # users/views.py
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     """Register a new user."""
@@ -22,3 +23,14 @@ def register(request):
     # Display a blank or invalid form.
     context = {'form': form}
     return render(request, 'registration/register.html', context)
+
+
+@login_required
+def logout_view(request):
+    """Log out the user and display confirmation page."""
+    if request.method == 'POST':
+        logout(request)
+        return render(request, 'registration/logged_out.html')
+    
+    # If GET request, show the logout confirmation form
+    return render(request, 'registration/logout.html')
