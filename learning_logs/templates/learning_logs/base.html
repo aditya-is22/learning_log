@@ -43,7 +43,7 @@
                 <span class="nav-link"><i class="fas fa-user me-1"></i> {{ user.username }}</span>
               </li>
               <li class="nav-item">
-                <form class="d-inline" method="post" action="{% url 'users:logout' %}">
+                <form class="d-inline" method="get" action="{% url 'users:logout' %}">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-link nav-link p-0 align-baseline"><i class="fas fa-sign-out-alt me-1"></i> Log out</button>
                 </form>
