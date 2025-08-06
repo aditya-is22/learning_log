@@ -4,6 +4,7 @@ from .models import Topic, Entry
 from .forms import TopicForm
 from .forms import EntryForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 # Create your views here.
@@ -41,6 +42,7 @@ def new_topic(request):
             new_topic = form.save(commit=False)
             new_topic.owner = request.user
             new_topic.save()
+            messages.success(request, f'Topic "{new_topic.text}" has been created successfully.')
             return redirect('learning_logs:topics')  # Redirect to topics page
 
     context = {'form': form}
@@ -58,6 +60,7 @@ def new_entry(request, topic_id):
             new_entry = form.save(commit=False)
             new_entry.topic = topic
             new_entry.save()
+            messages.success(request, 'New entry has been added successfully.')
             return redirect('learning_logs:topic', topic_id=topic_id)
 
     context = {'topic': topic, 'form': form}
@@ -74,6 +77,7 @@ def edit_entry(request, entry_id):
         form = EntryForm(instance=entry, data=request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Entry has been updated successfully.')
             return redirect('learning_logs:topic', topic_id=topic.id)
 
     context = {'entry': entry, 'topic': topic, 'form': form}
@@ -103,3 +107,33 @@ def search_results(request):
     # The context is passed to the template without any text processing
     context = {'query': query, 'topics': topics, 'entries': entries}
     return render(request, 'learning_logs/search_results.html', context)
+
+
+@login_required
+def delete_topic(request, topic_id):
+    """Delete a topic and all its entries."""
+    topic = get_object_or_404(Topic, id=topic_id, owner=request.user)
+    
+    if request.method == 'POST':
+        topic_name = topic.text
+        topic.delete()
+        messages.success(request, f'Topic "{topic_name}" and all its entries have been deleted successfully.')
+        return redirect('learning_logs:topics')
+    
+    # For GET requests, redirect to topics page
+    return redirect('learning_logs:topics')
+
+
+@login_required  
+def delete_entry(request, entry_id):
+    """Delete an entry."""
+    entry = get_object_or_404(Entry, id=entry_id, topic__owner=request.user)
+    topic = entry.topic
+    
+    if request.method == 'POST':
+        entry.delete()
+        messages.success(request, 'Entry has been deleted successfully.')
+        return redirect('learning_logs:topic', topic_id=topic.id)
+    
+    # For GET requests, redirect to topic page
+    return redirect('learning_logs:topic', topic_id=topic.id)
