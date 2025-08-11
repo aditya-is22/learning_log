@@ -23,5 +23,9 @@ urlpatterns = [
 
     # Show the search results
     path('search/', views.search_results, name='search_results'),
+    
+    # Export operations
+    path('export/all/<str:format>/', views.export_all_entries, name='export_all_entries'),
+    path('export/topic/<int:topic_id>/<str:format>/', views.export_topic_entries, name='export_topic_entries'),
 ]
 

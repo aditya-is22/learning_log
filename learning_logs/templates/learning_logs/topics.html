@@ -30,6 +30,25 @@
                 <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-sm btn-outline-success" title="Add new entry">
                   <i class="fas fa-plus"></i>
                 </a>
+                <div class="export-dropdown btn-group">
+                  <button class="btn btn-sm btn-outline-info export-btn" type="button" title="Export topic">
+                    <i class="fas fa-download"></i>
+                  </button>
+                  <div class="export-dropdown-content">
+                    <a href="{% url 'learning_logs:export_topic_entries' topic.id 'pdf' %}" class="export-option pdf">
+                      <i class="fas fa-file-pdf"></i> PDF
+                    </a>
+                    <a href="{% url 'learning_logs:export_topic_entries' topic.id 'docx' %}" class="export-option docx">
+                      <i class="fas fa-file-word"></i> Word
+                    </a>
+                    <a href="{% url 'learning_logs:export_topic_entries' topic.id 'json' %}" class="export-option json">
+                      <i class="fas fa-file-code"></i> JSON
+                    </a>
+                    <a href="{% url 'learning_logs:export_topic_entries' topic.id 'csv' %}" class="export-option csv">
+                      <i class="fas fa-file-csv"></i> CSV
+                    </a>
+                  </div>
+                </div>
                 <button class="btn btn-sm btn-outline-danger delete-btn" 
                         data-message="Are you sure you want to delete this topic? All entries associated with this topic will be deleted."
                         data-url="{% url 'learning_logs:delete_topic' topic.id %}"

@@ -39,6 +39,28 @@
           
           <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
             {% if user.is_authenticated %}
+              <!-- Export dropdown for all entries -->
+              <li class="nav-item me-3">
+                <div class="export-dropdown">
+                  <button class="export-btn" type="button">
+                    <i class="fas fa-download"></i> Export All
+                  </button>
+                  <div class="export-dropdown-content">
+                    <a href="{% url 'learning_logs:export_all_entries' 'pdf' %}" class="export-option pdf">
+                      <i class="fas fa-file-pdf"></i> PDF
+                    </a>
+                    <a href="{% url 'learning_logs:export_all_entries' 'docx' %}" class="export-option docx">
+                      <i class="fas fa-file-word"></i> Word
+                    </a>
+                    <a href="{% url 'learning_logs:export_all_entries' 'json' %}" class="export-option json">
+                      <i class="fas fa-file-code"></i> JSON
+                    </a>
+                    <a href="{% url 'learning_logs:export_all_entries' 'csv' %}" class="export-option csv">
+                      <i class="fas fa-file-csv"></i> CSV
+                    </a>
+                  </div>
+                </div>
+              </li>
               <li class="nav-item me-3">
                 <span class="nav-link"><i class="fas fa-user me-1"></i> {{ user.username }}</span>
               </li>
