@@ -3,7 +3,28 @@
 {% block page_header %}
   <div class="d-flex justify-content-between align-items-center">
     <h2><i class="fas fa-book me-2"></i>{{ topic }}</h2>
-    <a href="{% url 'learning_logs:topics' %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i> Back to Topics</a>
+    <div class="d-flex gap-2">
+      <div class="export-dropdown">
+        <button class="export-btn" type="button">
+          <i class="fas fa-download"></i> Export Topic
+        </button>
+        <div class="export-dropdown-content">
+          <a href="{% url 'learning_logs:export_topic_entries' topic.id 'pdf' %}" class="export-option pdf">
+            <i class="fas fa-file-pdf"></i> PDF
+          </a>
+          <a href="{% url 'learning_logs:export_topic_entries' topic.id 'docx' %}" class="export-option docx">
+            <i class="fas fa-file-word"></i> Word
+          </a>
+          <a href="{% url 'learning_logs:export_topic_entries' topic.id 'json' %}" class="export-option json">
+            <i class="fas fa-file-code"></i> JSON
+          </a>
+          <a href="{% url 'learning_logs:export_topic_entries' topic.id 'csv' %}" class="export-option csv">
+            <i class="fas fa-file-csv"></i> CSV
+          </a>
+        </div>
+      </div>
+      <a href="{% url 'learning_logs:topics' %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left me-1"></i> Back to Topics</a>
+    </div>
   </div>
 {% endblock page_header %}
 

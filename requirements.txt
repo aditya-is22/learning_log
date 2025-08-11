@@ -11,3 +11,5 @@ sqlparse==0.5.1
 tzdata==2024.2
 webencodings==0.5.1
 whitenoise==6.9.0
+reportlab==4.2.5
+python-docx==1.1.2
